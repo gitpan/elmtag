@@ -1,5 +1,5 @@
 #!/usr/local/bin/perl
-#       $Id: elmtag.pl,v 1.9 1998/12/12 23:34:47 cinar Exp $
+#       $Id: elmtag.pl,v 1.11 1998/12/14 01:36:56 cinar Exp $
 #
 # Elmtag.pl to insert tag lines to your e-mail messages.
 # Copyright (C) 1998 Ali Onur Cinar <root@zdo.com>
@@ -8,7 +8,7 @@
 #
 #   ftp://hun.ece.drexel.edu/pub/cinar/elmtag*
 #   ftp://ftp.cpan.org/pub/CPAN/authors/id/A/AO/AOCINAR/elmtag*
-#   ftp://sunsite.unc.edu/pub/Linux/system/admin/time/elmtag*
+#   ftp://sunsite.unc.edu/pub/Linux/system/mail/misc/elmtag*
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -25,6 +25,11 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+#
+# $Log: elmtag.pl,v $
+# Revision 1.11  1998/12/14 01:36:56  cinar
+# first distribution version
+#
 
 # location of tag database
 $tag_file = '/home/cinar/personel/documents/tags';
@@ -32,7 +37,7 @@ $tag_file = '/home/cinar/personel/documents/tags';
 # your prefered editor
 $your_editor = 'vi';
 
-# do you want an alphabeticaly ordered list? (1=on, 0=off)
+# do you prefere an alphabeticaly ordered list? (1=on, 0=off)
 $alphabetical = 1;
 
 # User interface coordinates
@@ -42,7 +47,7 @@ $uiheight = 10;
 $uiweight = 76;
 
 # what's my version
-$verraw  = '$Revision: 1.9 $'; $verraw =~ /.{11}(.{4})/g; $elmtagver = "1.$1";
+$verraw  = '$Revision: 1.11 $'; $verraw =~ /.{11}(.{4})/g; $elmtagver = "1.$1";
 
 # terminal controls
 %scr = (	'f'		=> 3,
@@ -137,7 +142,7 @@ sub ShowTags
 	}
 	system "stty -echo";
 
-	while (($key ne 'e') && ($key ne 's') && ($key ne 'q'))
+	while ($key !~ /(e|E|s|S|q|Q|r|R)/)
 	{
 		$m = $stl_pointer - $stl_line;
 
@@ -159,14 +164,14 @@ sub ShowTags
 		if ($key == 27)
 		{
 			$key = getc(STDIN);
-			if (($key eq '[') || ($key eq 'O'))
+			if ($key =~ /(\[|O)/)
 			{
 				$key = getc(STDIN);
 			}
 		}
 
 # Case DN ARROW
-		if ((($key eq 'B') || ($key eq 'r')) && ($stl_pointer < $stl_end))
+		if (($key =~ /(B|r)/) && ($stl_pointer < $stl_end))
 		{
 			if ($stl_line < $uiheight)
 			{
@@ -181,7 +186,7 @@ sub ShowTags
 		}
 
 # Case UP ARROW
-		elsif (($key eq 'A') || ($key eq 'x'))
+		elsif ($key =~ /(A|x)/)
 		{
 			if ($stl_line > 0)
 			{
@@ -217,7 +222,7 @@ sub DrawUI
 	$k=$#Taglines+1;
 	svid(normal);scurs(clear);
 	scenter($ycord-2,"Tagline database has $k taglines.");
-	scenter($ycord+$uiheight+2,"Use arrow keys to move, (s)elect, (e)dit");
+	scenter($ycord+$uiheight+2,"Use arrow keys to move, (s)elect, (r)andom, (e)dit");
 	scenter($ycord+$uiheight+3,"or just press (q) if you don't want to use a tagline at this time.");
 	scenter($ycord+$uiheight+4,"Elmtag.pl v$elmtagver (c) '98 by Ali Onur Cinar <root\@zdo.com>");
 
@@ -225,18 +230,19 @@ sub DrawUI
 
 sub Evaluate
 {
-	if ($key eq 's')
+	if ($key =~ /(s|S|r|R)/)
 	{
+		if ($key =~ /(r|R)/) {srand (time); $stl_pointer = rand $#Taglines; }
 		$SelectedTag = "\"\\n$Taglines[$stl_pointer]\\n\"";
 		system "echo $SelectedTag >> $ARGV[0]";
 		exec $your_editor, $ARGV[0];
 	}
-	elsif ($key eq 'e')
+	elsif ($key =~ /(e|E)/)
 	{
 		system $your_editor, $tag_file;
 		goto main;
 	}
-	elsif ($key eq 'q')
+	elsif ($key =~ /(q|Q)/)
 	{
 		scurs(clear);
 		if ($ARGV[0] ne '')
