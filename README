@@ -1,74 +1,198 @@
 
 
-1. LICENCE
 
-       $Id: elmtag.pl,v 1.4 1998/12/11 22:10:26 cinar Exp $
-
- Elmtag.pl to insert tag lines to your e-mail messages.
- Copyright (C) 1998 Ali Onur Cinar <root@zdo.com>
-
- Latest version can be downloaded from:
-
-   ftp://hun.ece.drexel.edu/pub/cinar/elmtag*
-   ftp://ftp.cpan.org/pub/CPAN/authors/id/A/AO/AOCINAR/elmtag*
-   ftp://sunsite.unc.edu/pub/Linux/system/mail/misc/elmtag*
-
- This program is free software; you can redistribute it and/or
- modify it under the terms of the GNU General Public License
- as published by the Free Software Foundation; either version 2
- of the License, or (at your option) any later version. And also
- please DO NOT REMOVE my name, and give me a CREDIT when you use
- whole or a part of this program in an other program.
-
- This program is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
-
- You should have received a copy of the GNU General Public License
- along with this program; if not, write to the Free Software
- Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
-
-2. INSTALLATION
-
-2.1.  GENERAL
-
-Open elmtag.pl with a text editor and update the fallowing file names.
-
-# location of tag database
-$tag_file = '/home/cinar/personel/documents/tags';
-
-# your prefered editor
-$your_editor = 'vi';
-
-$tag_file  is the  text file which contains the taglines.
-$your_editor  is the editor which you prefere to use when you are writing
-e-mails.
+ELMTAG(1L)        Misc. Reference Manual Pages         ELMTAG(1L)
 
 
-2.2.  ELM
 
-	- Start ELM
-	- Go to Options menu by pressing 'o'
-	- press 'E' to change your default editor
-	- write  elmtag.pl    (include fullpath if it's necessaire)
-	- press '>' to save your settings
+NNNNAAAAMMMMEEEE
+     elmtag - add taglines to your e-mails
 
-Try to send an e-mail,  if you can see the ELMTAG's menu,  it's working!
+SSSSYYYYNNNNOOOOPPPPSSSSIIIISSSS
+     eeeellllmmmmttttaaaagggg [ ----rrrr ] (_r_a_n_d_o_m_l_y-_s_e_l_e_c_t-_a-_t_a_g_l_i_n_e)
+
+DDDDEEEESSSSCCCCRRRRIIIIPPPPTTTTIIIIOOOONNNN
+     _E_l_m_t_a_g is an interactive  screen-oriented  tagline  includer
+     for your e-mails.
+
+LLLLIIIICCCCEEEENNNNCCCCEEEE
+     This program is  free  software;  you  can  redistribute  it
+     and/or  modify  it under the terms of the GNU General Public
+     License as published by the Free Software Foundation; either
+     version 2 of the License, or (at your option) any later ver-
+     sion. And also please DO NOT REMOVE my name, and give  me  a
+     CREDIT  when  you  use whole or a part of this program in an
+     other program.
+
+     This program is distributed in the hope that it will be use-
+     ful, but WITHOUT ANY WARRANTY; without even the implied war-
+     ranty of MERCHANTABILITY or FITNESS FOR  A  PARTICULAR  PUR-
+     POSE.  See the GNU General Public License for more details.
+
+IIIINNNNSSSSTTTTAAAALLLLLLLLAAAATTTTIIIIOOOONNNN
+     There is only two step to make Elmtag.pl ready to work.
+
+  CCCCoooonnnnffffiiiigggguuuurrrriiiinnnngggg EEEEllllmmmmttttaaaagggg....ppppllll
+     Open elmtag.pl with a text editor and update  the  fallowing
+     file names.
+
+     Location of your tagline database
+
+     $$$$ttttaaaagggg____ffffiiiilllleeee ==== ''''////hhhhoooommmmeeee////cccciiiinnnnaaaarrrr////ppppeeeerrrrssssoooonnnneeeellll////ddddooooccccuuuummmmeeeennnnttttssss////ttttaaaaggggssss'''';;;;
+
+     Your prefered editor
+
+     $$$$yyyyoooouuuurrrr____eeeeddddiiiittttoooorrrr ==== ''''vvvviiii'''';;;;
+
+     Do you prefere an alphabeticaly ordered list?
+
+     $$$$aaaallllpppphhhhaaaabbbbeeeettttiiiiccccaaaallll ==== 1111;;;; ((((1111====oooonnnn,,,, 0000====ooooffffffff))))
+
+     centeralize taglines when appending to e-mails?
+
+     $$$$cccceeeennnntttteeeerrrrttttaaaaggggssss ==== 1111;;;; ((((1111====oooonnnn,,,, 0000====ooooffffffff))))
+
+     Elmtag.pl's configuration are done. Now  configure  your  e-
+     mail program by fallowing these steps:
+
+  IIIIffff yyyyoooouuuu uuuusssseeee EEEELLLLMMMM
+          - Start ELM
 
 
-2.3.  PINE
 
-	- Start PINE
-	- press 'S' for setup
-	- press 'C' for config
-	- go to  editor=     (it's close to the bottom of list)
-	- change it to  elmtag.pl  (include fullpath it it's necessaire)
-	- press 'e' to exit
- 	- press 'y' and save the settings.
+SunOS 5.5      Last change: Elmtag Version 1.1.29               1
 
-Try to send an e-mail,  if you can see the ELMTAG's menu,  it's working!
 
+
+
+
+
+ELMTAG(1L)        Misc. Reference Manual Pages         ELMTAG(1L)
+
+
+
+          - Go to Options menu by pressing 'o'
+
+          - press 'E' to change your default editor
+
+          - write  elmtag.pl (include fullpath if necessaire)
+
+          - press '>' to save your settings
+
+
+     Try to send an e-mail,  if you can see  the  ELMTAG's  menu,
+     it's working!
+
+
+  IIIIffff yyyyoooouuuu uuuusssseeee PPPPIIIINNNNEEEE
+          - Start PINE
+
+          - press 'S' for setup
+
+          - press 'C' for config
+
+          - go to  editor=     (it's close to the bottom of list)
+
+          - write  elmtag.pl  (include fullpath if necessaire)
+
+          - press 'e' to exit
+
+          - press 'y' and save the settings.
+
+
+     Try to send an e-mail,  if you can see  the  ELMTAG's  menu,
+     it's working!
+
+UUUUSSSSAAAAGGGGEEEE
+     When you want to send an e-mail, your mailer will start Elm-
+     tag  program, and you will see an Elm similar user interface
+     which shows the taglines you have in your database.
+     The definition of keys are:
+
+      KEY(S)        MISSION                    DESCRIPTION
+     S,s,ENTER Select a tag line   will select the hightlighted tagline
+                                   to append it to the end of your e-mail.
+
+     R,r       Random tagline      randomly select a tagline for you
+
+     T,t       Tag multiple tags   you can tag/untag multiple taglines to
+                                    append to your e-mail.
+
+     U,u       Untag all           untag all taglines you selected
+
+     /         Search pattern      search a keywork in tagline database
+
+     Q,q       Quit                to quit Elmtag, to do not add a tagline
+
+
+
+SunOS 5.5      Last change: Elmtag Version 1.1.29               2
+
+
+
+
+
+
+ELMTAG(1L)        Misc. Reference Manual Pages         ELMTAG(1L)
+
+
+
+                                    at this time to your e-mail.
+
+
+
+WWWWHHHHEEEERRRREEEE TTTTOOOO DDDDOOOOWWWWNNNNLLLLOOOOAAAADDDD
+     LLLLaaaatttteeeesssstttt vvvveeeerrrrssssiiiioooonnnn ccccaaaannnn bbbbeeee ddddoooowwwwnnnnllllooooaaaaddddeeeedddd ffffrrrroooommmm::::
+
+        ftp://hun.ece.drexel.edu/pub/cinar/elmtag*
+        ftp://ftp.cpan.org/pub/CPAN/authors/id/A/AO/AOCINAR/elmtag*
+        ftp://sunsite.unc.edu/pub/Linux/system/mail/misc/elmtag*
+
+
+BBBBUUUUGGGG RRRREEEEPPPPOOOORRRRTTTTSSSS TTTTOOOO
+     Ali Onur Cinar      cinar@hun.ece.drexel.edu
+
+
+CCCCOOOOPPPPYYYYRRRRIIIIGGGGHHHHTTTTSSSS
+      Copyright 1998 by Ali Onur Cinar <root@zdo.com>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+SunOS 5.5      Last change: Elmtag Version 1.1.29               3
 
 
 

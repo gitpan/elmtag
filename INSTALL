@@ -1,0 +1,14 @@
+
+do  
+
+   more README
+
+to read the User Guide and installation notices.
+
+
+if you have problems to read 'README' file, you can
+recompile the manual page by
+
+   nroff -man elmtag.1 > README
+
+
