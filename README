@@ -1,0 +1,74 @@
+
+
+1. LICENCE
+
+       $Id: elmtag.pl,v 1.4 1998/12/11 22:10:26 cinar Exp $
+
+ Elmtag.pl to insert tag lines to your e-mail messages.
+ Copyright (C) 1998 Ali Onur Cinar <root@zdo.com>
+
+ Latest version can be downloaded from:
+
+   ftp://hun.ece.drexel.edu/pub/cinar/elmtag*
+   ftp://ftp.cpan.org/pub/CPAN/authors/id/A/AO/AOCINAR/elmtag*
+   ftp://sunsite.unc.edu/pub/Linux/system/admin/time/elmtag*
+
+ This program is free software; you can redistribute it and/or
+ modify it under the terms of the GNU General Public License
+ as published by the Free Software Foundation; either version 2
+ of the License, or (at your option) any later version. And also
+ please DO NOT REMOVE my name, and give me a CREDIT when you use
+ whole or a part of this program in an other program.
+
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+
+ You should have received a copy of the GNU General Public License
+ along with this program; if not, write to the Free Software
+ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+
+2. INSTALLATION
+
+2.1.  GENERAL
+
+Open elmtag.pl with a text editor and update the fallowing file names.
+
+# location of tag database
+$tag_file = '/home/cinar/personel/documents/tags';
+
+# your prefered editor
+$your_editor = 'vi';
+
+$tag_file  is the  text file which contains the taglines.
+$your_editor  is the editor which you prefere to use when you are writing
+e-mails.
+
+
+2.2.  ELM
+
+	- Start ELM
+	- Go to Options menu by pressing 'o'
+	- press 'E' to change your default editor
+	- write  elmtag.pl    (include fullpath if it's necessaire)
+	- press '>' to save your settings
+
+Try to send an e-mail,  if you can see the ELMTAG's menu,  it's working!
+
+
+2.3.  PINE
+
+	- Start PINE
+	- press 'S' for setup
+	- press 'C' for config
+	- go to  editor=     (it's close to the bottom of list)
+	- change it to  elmtag.pl  (include fullpath it it's necessaire)
+	- press 'e' to exit
+ 	- press 'y' and save the settings.
+
+Try to send an e-mail,  if you can see the ELMTAG's menu,  it's working!
+
+
+
+

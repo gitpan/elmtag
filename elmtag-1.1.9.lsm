@@ -1,0 +1,15 @@
+Begin3
+Title:          elmtag
+Version:        1.1.4
+Entered-date:   11Dec98
+Description:    Add tag lines to your e-mails (elm/pine)
+Keywords:       elm, pine, tag, tagline, e-mail
+Author:         cinar@hun.ece.drexel.edu (Ali Onur Cinar)
+Maintained-by:  cinar@hun.ece.drexel.edu (Ali Onur Cinar)
+Primary-site:   ftp://ftp.cpan.org/pub/CPAN/authors/id/A/AO/AOCINAR/elmtag*
+Alternate-site: ftp://sunsite.unc.edu/pub/Linux/system/mail/misc/elmtag*
+Original-site:  ftp://hun.ece.drexel.edu/pub/cinar/elmtag*
+Home-Page:      http://www.zdo.com
+Platform:       Unix (tested on Linux and Solaris)
+Copying-policy: GPL 
+End
