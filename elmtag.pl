@@ -1,8 +1,10 @@
 #!/usr/local/bin/perl
-#       $Id: elmtag.pl,v 1.39 1999/01/04 00:17:40 cinar Exp cinar $
+#       $Id: elmtag.pl,v 1.41 1999/01/07 03:22:18 cinar Exp cinar $
 #
-# Elmtag.pl to insert tag lines to your e-mail messages.
-# Copyright (C) 1998, 1999 Ali Onur Cinar <root@zdo.com>
+# Elmtag.pl: insert tag lines to your e-mail messages.
+#
+# This file and all associated files and documentation:
+# 	Copyright (C) 1998,1999 Ali Onur Cinar <root@zdo.com>
 #
 # Latest version can be downloaded from:
 #
@@ -38,8 +40,11 @@
 # Charles M. Orgish	who gave tioc addresses from his Ultrix system.
 #
 # $Log: elmtag.pl,v $
-# Revision 1.39  1999/01/04 00:17:40  cinar
-# selected tags number on status line.
+# Revision 1.41  1999/01/07 03:22:18  cinar
+# *** empty log message ***
+#
+# Revision 1.40  1999/01/07 03:04:53  cinar
+# automatic installation option included
 #
 # Revision 1.34  1998/12/31 02:31:41  cinar
 # command line & ENV var based configuration enabled.
@@ -75,7 +80,7 @@ $mailmaxrow = 80;
 # no more end-user based configuration at the bottom part
 
 # what's my version
-$verraw  = '$Revision: 1.39 $'; $verraw =~ /.{11}(.{4})/g; $elmtagver = "1.$1";
+$verraw  = '$Revision: 1.41 $'; $verraw =~ /.{11}(.{4})/g; $elmtagver = "1.$1";
 
 @help_msg = (
 	"\nElmtag.pl v$elmtagver [$^O] (c) '98-99 by Ali Onur Cinar <root\@zdo.com>\n",
@@ -90,20 +95,157 @@ $verraw  = '$Revision: 1.39 $'; $verraw =~ /.{11}(.{4})/g; $elmtagver = "1.$1";
 	"	-e -E	<program> editor program to use\n",
 	"	-m -M	<maxrow>  max number of row of an e-mail (default:80)\n",
 	"	-n -N             do not use  .elmtagrc  configuration file\n",
-	"	-r -R             randomly select a tag line\n",
+	"	-r -R             randomly select a tag line\n\n",
+	"	-i -I             automatic installation (only for ELM & PINE)\n",
 	"	-h -H             this help message\n\n",
 	"These command line variables overwrite .elmtagrc settings, but they can be\n",
 	"also overwritten by setting shell environement variables. (see manual file)\n\n");
 
 require "getopts.pl";
-if(!&Getopts("a:A:c:C:d:D:e:E:hH:m:M:nN:rR") || $opt_h || $opt_H) { print @help_msg; exit; }
+if(!&Getopts("a:A:c:C:d:D:e:E:hH:iI:m:M:nN:rR") || $opt_h || $opt_H) { print @help_msg; exit; }
 
 undef @help_msg;	# we won't need it again
+
+# if automatic installation requested
+if ($opt_i || $opt_I)
+{
+	print "Installing $0...\n";
+
+	if (!defined $elmtag_path)
+	{
+		print "\nChecking path for $0...";
+		@lookin = split(':',$ENV{PATH});
+
+		foreach (@lookin)
+		{
+			if ( -x "$_/$0" ) { $elmtag_path = "$_/$0"; break; }
+		}
+	}
+
+	if (!defined $elmtag_path)
+	{
+		print "Checking current directory for $0...";
+		undef @lookin;chomp($lookin = `pwd`);
+		if ( -x "$lookin/$0" ) { $elmtag_path = "$lookin/$0"; }
+	}
+
+	if (!defined $elmtag_path)
+	{
+		print "\nChecking your home directory for $0...";
+		open FINDP, "find $ENV{HOME} -name $0 |";
+
+		while (<FINDP>)
+		{
+			next if ( /denied/ );
+			$elmtag_path = $_;
+		}
+		close FINDP;
+	}
+
+	if (defined $elmtag_path) { print " found.\n---> Location: $elmtag_path \n"; }
+	else { print " not found.\n---> Please enter the location: "; $elmtag_path = <STDIN>; }
+
+	if (open CURCONF, "<$ENV{HOME}/.elm/elmrc")
+	{
+		open NEWCONF, ">$ENV{HOME}/.elm/elmrc.new";
+
+		while (<CURCONF>)
+		{
+			if($_ =~ /(^editor|^### editor)/)
+			{
+				@line = split(/ /);
+
+				if ($#line gt 0)
+				{
+					chop($prefered_editor = $line[$#line]);
+				}
+
+				print NEWCONF "editor = $elmtag_path\n";
+				print "Elmtag.pl installed to your ELM configuration.\n";
+			}
+			else
+			{
+				print NEWCONF $_;
+			}
+		}
+
+		close CURCONF;
+		close NEWCONF;
+		system("/bin/mv -f $ENV{HOME}/.elm/elmrc.new $ENV{HOME}/.elm/elmrc");
+	}
+	else
+	{
+		print "\nNo ELM configuration file found in $ENV{HOME}/.elm !\nPlease save your ELM configuration once from ELM's Options menu, and restart the installation again.\n(If you want to use Elmtag.pl from ELM ofcouse)\n\n";
+	}
+
+	if (open CURCONF, "$ENV{HOME}/.pinerc")
+	{
+		open NEWCONF, ">$ENV{HOME}/.pinerc.new";
+
+		while (<CURCONF>)
+		{
+			if ( /^editor/ )
+			{
+				if (!defined $prefered_editor)
+				{
+					@line = split(/ /);
+					chop($prefered_editor = $line[$#line]);
+				}
+
+				print NEWCONF "editor=$elmtag_path\n";
+				print "Elmtag.pl installed to your PINE configuration.\n";
+			}
+
+			elsif ( (/^feature-list/) && (! /enable-alternate-editor-implicity/) )
+			{
+				chop;
+				print NEWCONF $_;
+
+				if ( /,/ )
+				{
+					print NEWCONF ",";
+				}
+
+				print NEWCONF " enable-alternate-editor-implicity\n";
+			}
+
+			else
+			{
+				print NEWCONF $_;
+			}
+		}
+
+		close CURCONF;
+		close NEWCONF;
+		system("/bin/mv -f $ENV{HOME}/.pinerc.new $ENV{HOME}/.pinerc");
+	}
+
+	else
+	{
+		print "No PINE configuration in $ENV{HOME}.\n";
+	}
+
+
+	open ELMTAGCONF, ">$ENV{HOME}/.elmtagrc";
+	print "Creating Elmtag.pl configuration file $ENV{HOME}/.elmtagrc...\n";
+
+	if (($prefered_editor =~ /elmtag/) || ($prefered_editor =~ /$0/) || (!defined $prefered_editor))
+	{
+		$prefered_editor = "vi";
+	}
+
+	print "Your prefered editor is: $prefered_editor\n";
+	print ELMTAGCONF "\$your_editor = $prefered_editor;\n";
+	close ELMTAGCONF;
+
+	print "Installation completed. Please test it from your mailer.\n";
+	exit;
+}
 
 # if .elmtagrc exists in home directory get the settings
 if (( -e "$ENV{HOME}/.elmtagrc" ) && !$opt_n && !$opt_N)
 {
-	require "$HOME/.elmtagrc";
+	require "$ENV{HOME}/.elmtagrc";
 }
 
 # overwrite variables if they are defined on command line or ENV var

@@ -1,4 +1,14 @@
 
+
+if you are using  ELM or PINE
+
+start elmtag.pl with  -i  option for automatic installation
+or read the documentation.
+
+$ elmtag.pl -i
+
+
+
 do  
 
    more README
